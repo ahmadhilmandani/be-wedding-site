@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -17,8 +19,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'groom',
+        'bride',
         'password',
     ];
 
@@ -43,5 +45,25 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function marriage(): HasOne
+    {
+        return $this->hasOne(Marriage::class);
+    }
+
+    public function party(): HasOne
+    {
+        return $this->hasOne(Party::class);
+    }
+
+    public function loveStory(): HasMany
+    {
+        return $this->hasMany(LoveStory::class);
+    }
+
+    public function guest(): HasMany
+    {
+        return $this->hasMany(LoveStory::class);
     }
 }
