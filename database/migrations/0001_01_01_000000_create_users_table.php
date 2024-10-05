@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('groom_mother')->nullable();
             $table->string('bride_father')->nullable();
             $table->string('bride_mother')->nullable();
+            $table->string('role')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
