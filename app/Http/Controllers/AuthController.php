@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
     /**
-     * For handling iser login 
+     * For handling user login 
      */
     public function login(Request $request)
     {
@@ -29,25 +30,29 @@ class AuthController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * For handling registration
      */
     public function register(Request $request)
     {
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+
         $user = new User();
 
         $user->email = $request->email;
+        $user->groom = $request->groom;
+        $user->bride = $request->bride;
+        $user->groom_father = $request->groom_father;
+        $user->groom_mother = $request->groom_mother;
+        $user->bride_father = $request->bride_father;
+        $user->bride_mother = $request->bride_mother;
         $user->password = Hash::make($request->password);
+        $user->role = $request->role;
         $user->save();
 
         return response()->json(['message' => 'User Created', 'data' => $user], 200);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(User $user)
-    {
-        //
     }
 
     /**
