@@ -16,7 +16,7 @@ class WeddingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function addWedding(Request $request)
+    public function add_wedding(Request $request)
     {
         $user_info = Auth::user();
 

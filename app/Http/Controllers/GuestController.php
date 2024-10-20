@@ -5,23 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Guest;
 use App\Http\Requests\StoreGuestRequest;
 use App\Http\Requests\UpdateGuestRequest;
+use Illuminate\Http\Request;
 
 class GuestController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(String $user_id)
     {
-        //
-    }
+        $guest = Guest::where('user_id', $user_id)
+            ->orderBy('created_at')
+            ->get();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json(["message" => "success", "data"=> $guest], 200);
+        
     }
 
     /**
@@ -41,14 +39,6 @@ class GuestController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Guest $guest)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(UpdateGuestRequest $request, Guest $guest)
@@ -62,5 +52,25 @@ class GuestController extends Controller
     public function destroy(Guest $guest)
     {
         //
+    }
+
+    public function rsvp(Request $request)
+    {
+        $request->validate([
+            "guest_key" => 'required',
+            "is_attend_marriage" => 'required',
+            "is_attend_party" => 'required'
+        ]);
+
+        $guest = Guest::find($request->guest_key);
+        $guest->is_attend_marriage = $request->is_attend_marriage;
+        $guest->is_attend_party = $request->is_attend_party;
+
+        if ($request->guest_prayer) {
+            $guest->guest_prayer = $request->guest_prayer;
+        }
+        $guest->save();
+
+        return response()->json(["message" => "success"], 200);
     }
 }
