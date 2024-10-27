@@ -15,6 +15,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
   Route::apiResource('/users', UserController::class);
 });
 
+
 Route::post('/wedding', [WeddingController::class, 'add_wedding'])->middleware(('auth:sanctum'));
 
 Route::get('/rsvp/{user_id}', [GuestController::class, 'index']);
