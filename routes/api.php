@@ -21,3 +21,5 @@ Route::post('/wedding', [WeddingController::class, 'add_wedding'])->middleware((
 Route::get('/rsvp/{user_id}', [GuestController::class, 'index']);
 
 Route::post('/rsvp', [GuestController::class, 'rsvp']);
+
+Route::post('/like-auth', [GuestController::class, 'likeAuth']);

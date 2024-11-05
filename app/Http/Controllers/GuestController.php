@@ -58,12 +58,12 @@ class GuestController extends Controller
     {
         $request->validate([
             "guest_key" => 'required',
-            "is_attend_marriage" => 'required',
+            // "is_attend_marriage" => 'required',
             "is_attend_party" => 'required'
         ]);
 
         $guest = Guest::find($request->guest_key);
-        $guest->is_attend_marriage = $request->is_attend_marriage;
+        // $guest->is_attend_marriage = $request->is_attend_marriage;
         $guest->is_attend_party = $request->is_attend_party;
 
         if ($request->guest_prayer) {
@@ -72,5 +72,19 @@ class GuestController extends Controller
         $guest->save();
 
         return response()->json(["message" => "success"], 200);
+    }
+
+    public function likeAuth(Request $request)
+    {
+        $request->validate([
+            "guest_key" => 'required',
+        ]);
+
+        $guest = Guest::find($request->guest_key);
+
+        if($guest){
+            return response()->json(["message" => "success"], 200);
+        }
+        return response()->json(["success" => false], 400);
     }
 }
