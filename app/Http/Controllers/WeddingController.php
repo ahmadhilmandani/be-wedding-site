@@ -33,12 +33,14 @@ class WeddingController extends Controller
         $marriage->user_id = $user_info->id;
         $marriage->marriage_location = $request->marriage_location;
         $marriage->marriage_start = $request->marriage_start;
+        $marriage->marriage_gmap = $request->marriage_gmap;
         $marriage->save();
 
         $party = new Party();
         $party->user_id = $user_info->id;
         $party->party_location = $request->party_location;
         $party->party_start = $request->party_start;
+        $party->party_gmap = $request->party_gmap;
         $party->save();
 
         $reformat_love_story = [];
