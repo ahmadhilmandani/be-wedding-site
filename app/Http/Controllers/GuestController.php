@@ -78,12 +78,17 @@ class GuestController extends Controller
     {
         $request->validate([
             "guest_key" => 'required',
+            "guest_name" => 'required',
         ]);
 
         $guest = Guest::find($request->guest_key);
 
         if($guest){
-            return response()->json(["message" => "success"], 200);
+            if ($guest->guest_name == $request->guest_name){
+                return response()->json(["success" => true, "data" => $guest], 200);
+            } else{
+                return response()->json(["success" => false], 400);
+            }
         }
         return response()->json(["success" => false], 400);
     }
