@@ -17,7 +17,7 @@ class GuestController extends Controller
         $guest = Guest::where('user_id', $user_id)
             ->orderBy('created_at')
             ->where('guest_prayer', '!=', null)
-            ->get();
+            ->all();
 
         return response()->json(["message" => "success", "data"=> $guest], 200);
         
