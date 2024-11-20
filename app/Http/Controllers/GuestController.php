@@ -88,7 +88,7 @@ class GuestController extends Controller
             if ($guest->guest_name == $request->guest_name){
                 return response()->json(["success" => true, "data" => $guest], 200);
             } else{
-                return response()->json(["success" => false], 400);
+                return response()->json(["success" => false, "message" => "nama tidak sama"], 400);
             }
         }
         return response()->json(["success" => false], 400);
