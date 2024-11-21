@@ -88,7 +88,7 @@ class GuestController extends Controller
             if (trim($guest->guest_name) == $request->guest_name){
                 return response()->json(["success" => true, "data" => $guest], 200);
             } else{
-                $msg = "nama tidak sama, nama yang dikirim =" . $request->guest_name . "nama di db =" . trim($guest->guest_name);
+                $msg = "nama tidak sama, nama yang dikirim = " . $request->guest_name . " nama di db = " . trim($guest->guest_name);
                 return response()->json(["success" => false, "message" => $msg], 400);
             }
         }
